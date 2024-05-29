@@ -1,38 +1,38 @@
 <template>
     <div>
         <h1>Hola Home</h1>
-        <div class="product-list">
+        <!-- <div class="product-list">
             <Producto v-for="product in productos" :key="product.id" :product="product" />
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
 
-import Producto from '../components/Producto.vue'
-import { useProductStore } from '../stores/productStore.js'
+// import Producto from '../components/Producto.vue'
+// import { useProductStore } from '../stores/productStore.js'
 
 export default {
     components: {
-        Producto
+        // Producto
     },
     data(){
         return {
-            productStore: useProductStore()
+            // productStore: useProductStore()
         }
     },
     computed: {
-        productos(){
-            return this.productStore.productos
-        }
+        // productos(){
+        //     return this.productStore.productos
+        // }
     },
     methods: {
         // Llamar Productos
-        fetchProductos(){
-            this.productStore.fetchProductos()
-        }
+        // fetchProductos(){
+        //     this.productStore.fetchProductos()
+        // }
     },
     mounted(){
-        this.fetchProductos();
+        // this.fetchProductos();
     }
     
 }
