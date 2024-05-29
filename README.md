@@ -1,5 +1,24 @@
 # PNT2-TP_FINAL_SUPERHEROES
 
+Integrantes:
+
+- Monti Matias Sebastian
+- Hernando German Ezequiel
+- Gimenez Eduardo Victor
+- Arce Rojas Marcelo Ezequiel
+- Torres Marques Facundo Emanuel
+
+--------------------------------------------------------------
+
+Api a utilizar: https://superheroapi.com/?ref=apilist.fun
+
+--------------------------------------------------------------
+
+
+
+
+
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
@@ -27,3 +46,4 @@ npm run dev
 ```sh
 npm run build
 ```
+
