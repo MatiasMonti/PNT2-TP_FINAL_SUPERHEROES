@@ -1,47 +1,65 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <div id="app" class="app-container">
+    <Navbar />
+    <div class="content">
+      <router-view />
     </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+    <footer class="footer">
+      <h1>Footer</h1>
+    </footer>
+  </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f5f5f5; 
+  font-family: Arial, sans-serif;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+#app {
+  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
 }
 
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100vw;
+  align-items: center;
+}
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+.content {
+  flex-grow: 1; 
+  background-color: #ffffff; 
+  padding: 20px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 20px;
+  width: 100%;
+  max-width: 900px; /* Aumentar el tamaño máximo del contenedor */
+}
 
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  border-top: 2px solid #444;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 40px;
+    margin: 40px;
   }
 }
 </style>
