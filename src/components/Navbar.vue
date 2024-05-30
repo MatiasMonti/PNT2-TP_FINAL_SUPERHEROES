@@ -22,7 +22,7 @@
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
-            <span>Productos en Carrito: {{ cantidadCarrito }}</span>
+            <span>Monedas: {{ cantidadFavoritos }}</span>
           </li>
         </ul>
       </div>  

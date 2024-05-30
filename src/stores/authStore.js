@@ -8,20 +8,21 @@ export const useAuthStore = defineStore('auth', {
         isAdmin: false
     }),
     actions: {
-        async login(username, password){
+        async login(name, password){
 
             try {
-                const response = await fetch('https://664e8e3ffafad45dfae065a1.mockapi.io/api/v1/usuarios')
+                // const response = await fetch('https://664e8e3ffafad45dfae065a1.mockapi.io/api/v1/usuarios')
+                const response = await fetch('https://6657cb085c3617052645dfd1.mockapi.io/users')
                 const users = await response.json()
 
-                const user = users.find(user => user.username === username && user.password === password)
+                const user = users.find(user => user.name === name && user.password === password)
 
                 if(user) {
                     this.isAuthenticated = true;
                     this.user = user;
-                    this.isAdmin = user.admin;
+                    this.isAdmin = user.isAdmin;
                     localStorage.setItem('isAuthenticated', 'true')
-                    localStorage.setItem('isAdmin', user.admin ? 'true' : 'false')
+                    localStorage.setItem('isAdmin', user.isAdmin ? 'true' : 'false')
                     localStorage.setItem('user', JSON.stringify(user))
                 }else{
                     alert('Usuario o Contrasena no valido')
@@ -32,19 +33,25 @@ export const useAuthStore = defineStore('auth', {
             }
 
         },
-        async register(username, email, password){
-            if(username && email && password){
+        async register(name, email, password){
+            if(name && email && password){
                 try {
+                    const coins = 100
+                    const isAdmin = false
+                    
                     const user = {
-                        username,
-                        email,
+                        name,
                         password,
+                        email,
+                        isAdmin,
+                        coins,
+                        
                     }
 
                     console.log('usuario : ', user);
 
-                    const response = await axios.post('https://664e8e3ffafad45dfae065a1.mockapi.io/api/v1/usuarios', user)
-
+                    // const response = await axios.post('https://664e8e3ffafad45dfae065a1.mockapi.io/api/v1/usuarios', user)
+                    const response = await axios.post('https://6657cb085c3617052645dfd1.mockapi.io/users', user)
                     console.log('RESPONSE: ', response);
                     const data = await response.data;
 
