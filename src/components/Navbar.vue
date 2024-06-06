@@ -7,7 +7,7 @@
             <router-link class="nav-link" to="/home">Home</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
-            <router-link class="nav-link" to="/carrito">Carrito</router-link>
+            <router-link class="nav-link" to="/favoritos">Favoritos</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
             <router-link class="nav-link" to="/perfil">Perfil</router-link>
@@ -22,7 +22,7 @@
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
-            <span>Monedas: {{ cantidadFavoritos }}</span>
+            <span>Monedas: {{ cantHeroes }}</span> <!--aca va la cantidad de monedas del usuario-->
           </li>
         </ul>
       </div>  
@@ -31,7 +31,7 @@
   
   <script>
   
-//   import { useProductStore } from '@/stores/productStore';
+  import { useHeroStore } from '@/stores/heroStore';
   import { useAuthStore } from '../stores/authStore';
   
   
@@ -44,11 +44,12 @@
       isAdmin(){
         const authStore = useAuthStore();
         return authStore.isAdmin;
+      },
+      //aca hay que agregar para traer la cantidad de monedas
+      cantHeroes(){
+        const heroStore = useHeroStore();
+        return heroStore.quantHeroes;
       }
-    //   cantidadCarrito(){
-    //     const productStore = useProductStore();
-    //     return productStore.cantidadCarrito;
-    //   }
     },
     methods:{
       logout(){

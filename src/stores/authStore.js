@@ -5,7 +5,8 @@ export const useAuthStore = defineStore('auth', {
     state: () => ({
         isAuthenticated: false,
         user: null,
-        isAdmin: false
+        isAdmin: false,
+        id: 0,
     }),
     actions: {
         async login(name, password){
@@ -21,6 +22,7 @@ export const useAuthStore = defineStore('auth', {
                     this.isAuthenticated = true;
                     this.user = user;
                     this.isAdmin = user.isAdmin;
+                    this.id = user.id;
                     localStorage.setItem('isAuthenticated', 'true')
                     localStorage.setItem('isAdmin', user.isAdmin ? 'true' : 'false')
                     localStorage.setItem('user', JSON.stringify(user))
@@ -50,9 +52,10 @@ export const useAuthStore = defineStore('auth', {
 
                     console.log('usuario : ', user);
 
-                    // const response = await axios.post('https://664e8e3ffafad45dfae065a1.mockapi.io/api/v1/usuarios', user)
                     const response = await axios.post('https://6657cb085c3617052645dfd1.mockapi.io/users', user)
+
                     console.log('RESPONSE: ', response);
+
                     const data = await response.data;
 
                     console.log('LA DATA: ', data);
