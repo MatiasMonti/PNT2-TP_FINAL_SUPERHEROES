@@ -3,6 +3,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 
 import NotFound from '../views/NotFound.vue'
+import Favorites from '@/views/Favorites.vue';
 
 
 const routes = [
@@ -24,6 +25,14 @@ const routes = [
         component: Login,
         meta: {
             requiereAuth: false
+        }
+    },
+    {
+        path: '/favoritos',
+        name: 'Favoritos',
+        component: Favorites,
+        meta:{
+            requiereAuth: true
         }
     },
     {
