@@ -22,7 +22,7 @@
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
-            <span>Monedas: {{ cantidadFavoritos }}</span>
+            <span>Monedas: {{ cantidadMonedas }}</span>
           </li>
         </ul>
       </div>  
