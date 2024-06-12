@@ -1,6 +1,6 @@
 <template>  
   <div class="found-hero">
-    <img :src="hero.image" :alt="Image" class="fav-found-image"/>        
+    <img :src="hero.image" :alt="hero.name" class="fav-found-image"/>        
     <div class="found-hero-info">
       <h3 class="dark-text">{{hero.name}}</h3>
     </div>

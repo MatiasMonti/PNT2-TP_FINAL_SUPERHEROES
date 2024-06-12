@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 class="dark-text">Busca Nuevos heroes!</h1>
-        <input type="text" v-model="filter" @keyup.enter="fetchHeroes" placeholder="Buscar..." />
+        <input type="text" v-model="filter" @input="fetchHeroes" placeholder="Buscar..." />
         <div class="Hero-list">
             <FoundHero v-for="hero in FoundHeroes" :key="hero.id" :hero="hero" />
         </div>
@@ -32,7 +32,13 @@ export default {
     },
     methods: {
         fetchHeroes(){
-            this.heroApiStore.fetchHeroes(this.filter);
+            if (!(this.filter.trim() === '')) {
+        this.heroApiStore.fetchHeroes(this.filter);
+      } else {
+        this.heroApiStore.heroes = [];
+      }
+
+   
         }
     },
     mounted(){

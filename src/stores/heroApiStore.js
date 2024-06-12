@@ -21,7 +21,7 @@ export const useHeroApiStore = defineStore('heroApiStore', {
                   id: hero.id,
                   name: hero.name,
                   powerstats: hero.powerstats,
-                  image: hero.images[0]
+                  image: hero.images.xs
                 }))
             } catch (error) {
                 console.error('El error es: ', error)

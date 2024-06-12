@@ -8,7 +8,7 @@ export const useHeroStore = defineStore('heroStore', {
     }),
     getters: {
         quantHeroes: (state) => {
-            return state.cantHeroes;
+            return state.quantHeroes;
         },
         isInHeroes: (state) => (heroId) => {
             return !!state.heroes.find(item => item.id === heroId);
