@@ -1,19 +1,14 @@
-<template>
-    <div>
-      <input type="text" v-model="filter" @input="searchHero" placeholder="Buscar..." />
-      <ul>
-        <li v-for="hero in results" :key="hero.id">
-          <img :src="hero.image" alt="Image" />
-          <p>Nombre: {{ hero.name }}</p>
-          <button @click="addToFavorites(hero)">Añadir a favoritos</button>
-        </li>
-      </ul>
-     
+<template>  
+  <div class="found-hero">
+    <img :src="hero.image" :alt="Image" class="fav-found-image"/>        
+    <div class="found-hero-info">
+      <h3 class="dark-text">{{hero.name}}</h3>
     </div>
-  </template>
+    <button @click="addToFavorites(hero)">Añadir a favoritos</button>
+  </div>
+</template>
 <script>
 
-import { useHeroApiStore } from '../stores/heroApiStore';
 import { useHeroStore } from '../stores/heroStore';
 
 export default {
@@ -23,19 +18,31 @@ export default {
     methods:{
         async addHero(){
             const heroStore = useHeroStore()
-
+            
+            //modelar aca o en heroStore el heroe para que envie a la base el heroe con el formato  de campos esperado
             await heroStore.saveHero(this.hero)
-        },
-        async searchHero(){
-            const heroApiStore = useHeroApiStore()
-
-            await heroApiStore.fetchHeroes(this.filter)
         }
     }
 }
 </script>
 
-<style >
- 
-    
+<style > 
+ .found-hero{
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem
+    }    
+
+.found-hero-image{
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem
+}
+
+.found-hero-info {
+    flex-grow: 1
+}
+.dark-text {
+  color: #000000;
+}
 </style>

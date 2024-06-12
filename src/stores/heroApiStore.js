@@ -13,17 +13,15 @@ export const useHeroApiStore = defineStore('heroApiStore', {
             try {                
                 const response = await axios.get('https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json');
 
-                const data = await response.json();
-
+                const data = response.data;
                 
-                const filteredResults = data.filter(item => item.name.toLowerCase().includes(filter.toLowerCase()));
-              
+                this.heroes = data.filter(hero => hero.name.toLowerCase().includes(filter.toLowerCase()));              
                 
-                return filteredResults.slice(0,10).map(item => ({
-                  id: item.id,
-                  name: item.name,
-                  powerstats: item.powerstats,
-                  image: item.images[0]
+                this.heroes = this.heroes.slice(0,10).map(hero => ({
+                  id: hero.id,
+                  name: hero.name,
+                  powerstats: hero.powerstats,
+                  image: hero.images[0]
                 }))
             } catch (error) {
                 console.error('El error es: ', error)

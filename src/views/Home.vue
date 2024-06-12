@@ -1,47 +1,55 @@
 <template>
     <div>
-        <h1>Hola Home</h1>
-        <!-- <div class="product-list">
-            <Producto v-for="product in productos" :key="product.id" :product="product" />
-        </div> -->
+        <h1 class="dark-text">Busca Nuevos heroes!</h1>
+        <input type="text" v-model="filter" @keyup.enter="fetchHeroes" placeholder="Buscar..." />
+        <div class="Hero-list">
+            <FoundHero v-for="hero in FoundHeroes" :key="hero.id" :hero="hero" />
+        </div>
     </div>
 </template>
+
 <script>
 
-// import Producto from '../components/Producto.vue'
-// import { useProductStore } from '../stores/productStore.js'
+import { useHeroApiStore } from '../stores/heroApiStore';
+import { useHeroStore } from '../stores/heroStore';
+import FoundHero from '../components/SearchHero.vue';
 
 export default {
     components: {
-        // Producto
+        FoundHero
     },
     data(){
         return {
-            // productStore: useProductStore()
+            filter: '',
+            heroStore: useHeroStore(),
+            heroApiStore: useHeroApiStore()
         }
     },
     computed: {
-        // productos(){
-        //     return this.productStore.productos
-        // }
+        FoundHeroes(){
+            return this.heroApiStore.heroes;
+        }
     },
     methods: {
-        // Llamar Productos
-        // fetchProductos(){
-        //     this.productStore.fetchProductos()
-        // }
+        fetchHeroes(){
+            this.heroApiStore.fetchHeroes(this.filter);
+        }
     },
     mounted(){
-        // this.fetchProductos();
+        //fetchHeroes(); revisar si vale la pena trae heroes default.
     }
     
 }
 </script>
 <style scoped>
-.product-list {
+.Hero-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 16px;
 }
+.dark-text {
+  color: #000000;
+}
 </style>
+

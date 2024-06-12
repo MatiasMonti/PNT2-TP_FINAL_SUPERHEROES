@@ -6,11 +6,12 @@
         </div>
     </div>
 </template>
+
 <script>
 
 import { useHeroStore } from '../stores/heroStore';
 import { useAuthStore } from '../stores/authStore';
-import Hero from '../components/FavoritesHeroes.vue'
+import Hero from '../components/FavoritesHeroes.vue';
 
 export default {
     components: {

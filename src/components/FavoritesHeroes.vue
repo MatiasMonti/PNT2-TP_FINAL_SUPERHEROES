@@ -4,7 +4,7 @@
         <div class="fav-hero-info">
             <h3>{{hero.name}}</h3>
         </div>
-        <button @click="remover" class="remove-button">X</button>
+        <button @click="remove" class="remove-button">X</button>
     </div>
 </template>
 <script>
@@ -16,7 +16,7 @@ export default {
         hero: Object
     },
     methods:{
-        async remover(){
+        async remove(){
             const heroStore = useHeroStore()
 
             const heroId = Number(this.hero.id);
