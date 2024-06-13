@@ -7,13 +7,13 @@
             <router-link class="nav-link" to="/home">Home</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
-            <router-link class="nav-link" to="/favoritos">Favoritos</router-link>
+            <router-link class="nav-link" to="/favorites">Favoritos</router-link>
+          </li>
+          <li class="nav-item" v-if="isAuthenticated">
+            <router-link class="nav-link" to="/battle">Batalla</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
             <router-link class="nav-link" to="/perfil">Perfil</router-link>
-          </li>
-          <li class="nav-item" v-if="isAdmin">
-            <router-link class="nav-link" to="/crear-producto">Crear Producto</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
             <button @click="logout" class="nav-link logout-button">Logout</button>

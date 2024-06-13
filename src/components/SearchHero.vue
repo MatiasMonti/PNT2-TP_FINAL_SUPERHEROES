@@ -4,11 +4,12 @@
     <div class="found-hero-info">
       <h3 class="dark-text">{{hero.name}}</h3>
     </div>
-    <button @click="addToFavorites(hero)">Añadir a favoritos</button>
+    <button @click="addToFavorites()">Añadir a favoritos</button>
   </div>
 </template>
 <script>
 
+import { useAuthStore } from '../stores/authStore';
 import { useHeroStore } from '../stores/heroStore';
 
 export default {
@@ -16,11 +17,13 @@ export default {
         hero: Object
     },
     methods:{
-        async addHero(){
+        async addToFavorites(){
             const heroStore = useHeroStore()
-            
-            //modelar aca o en heroStore el heroe para que envie a la base el heroe con el formato  de campos esperado
+            const authStore = useAuthStore()
+            this.hero.idUser = authStore.id
+            console.log(this.hero.idUser)
             await heroStore.saveHero(this.hero)
+      
         }
     }
 }

@@ -28,13 +28,21 @@ const routes = [
         }
     },
     {
-        path: '/favoritos',
-        name: 'Favoritos',
+        path: '/favorites',
+        name: 'Favorites',
         component: Favorites,
         meta:{
             requiereAuth: true
         }
     },
+    // {
+    //     path: '/battle',
+    //     name: 'Battle',
+    //     component: Batlle,
+    //     meta:{
+    //         requiereAuth: true
+    //     }
+    // },
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="dark-text">Busca Nuevos heroes!</h1>
+        <h1 class="dark-text">Bienvenido! Agranda tus tropas antes de ir a pelear</h1>
         <input type="text" v-model="filter" @input="fetchHeroes" placeholder="Buscar..." />
         <div class="Hero-list">
             <FoundHero v-for="hero in FoundHeroes" :key="hero.id" :hero="hero" />

@@ -37,12 +37,21 @@ export const useHeroStore = defineStore('heroStore', {
 
             localStorage.setCant('cantHeroes', this.cantHeroes)
             },
-        async saveHero(newHero) {
+        async saveHero(hero) {
             try {                
-                const response = await axios.post('https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes', newHero);
+                const newHero = {
+                    "idHero": parseInt(hero.id),
+                    "idUser": hero.idUser,
+                    "name": hero.name,
+                    "urlImage": hero.image,
+                    "power": hero.powerstats.intelligence + hero.powerstats.strength + hero.powerstats.speed
+                     + hero.powerstats.power + hero.powerstats.durability + hero.powerstats.combat
+                }
+                console.log(newHero)
                 
+                const response = await axios.post('https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes', newHero);
             } catch (error) {
-                console.error('Error agregando heroe')
+                console.error('Error agregando heroe: ',error)
             }
         },
         async deleteSavedHero(idSavedHero) {
