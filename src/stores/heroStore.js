@@ -38,22 +38,32 @@ export const useHeroStore = defineStore('heroStore', {
             localStorage.setCant('cantHeroes', this.cantHeroes)
             },
         async saveHero(hero) {
-            try {                
-                const newHero = {
-                    "idHero": parseInt(hero.id),
-                    "idUser": hero.idUser,
-                    "name": hero.name,
-                    "urlImage": hero.image,
-                    "power": hero.powerstats.intelligence + hero.powerstats.strength + hero.powerstats.speed
-                     + hero.powerstats.power + hero.powerstats.durability + hero.powerstats.combat
+            const existingHeroes = await axios.get('https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes');
+            const heroExists = existingHeroes.data.some(savedHero => savedHero.idHero === hero.idHero);
+            if (heroExists) {
+                window.alert(`${newHero.name} ya existe en la lista.`);
+                return; 
+            }else{
+                try {                
+                    const newHero = {
+                        "idHero": parseInt(hero.id),
+                        "idUser": hero.idUser,
+                        "name": hero.name,
+                        "urlImage": hero.image,
+                        "power": hero.powerstats.intelligence + hero.powerstats.strength + hero.powerstats.speed
+                         + hero.powerstats.power + hero.powerstats.durability + hero.powerstats.combat
+                    }
+                    console.log(newHero)
+                    window.alert(`Se ha agregado a ${newHero.name}!`) //Para prueba de validación si es que entra un heroe repetido
+                    const response = await axios.post('https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes', newHero);
+                } catch (error) {
+                    console.error('Error agregando heroe: ',error)
                 }
-                console.log(newHero)
-                
-                const response = await axios.post('https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes', newHero);
-            } catch (error) {
-                console.error('Error agregando heroe: ',error)
-            }
+            }  
         },
+
+
+
         async deleteSavedHero(idSavedHero) {
             try {                
                 const response = await axios.delete(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes/${idSavedHero}`);
