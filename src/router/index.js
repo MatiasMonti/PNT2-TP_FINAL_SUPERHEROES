@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory} from 'vue-router';
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
-
+import Battle from '@/views/Battle.vue';
 import NotFound from '../views/NotFound.vue'
 import Favorites from '@/views/Favorites.vue';
 
@@ -35,14 +35,14 @@ const routes = [
             requiereAuth: true
         }
     },
-    // {
-    //     path: '/battle',
-    //     name: 'Battle',
-    //     component: Batlle,
-    //     meta:{
-    //         requiereAuth: true
-    //     }
-    // },
+    {
+         path: '/battle',
+         name: 'Battle',
+        component: Battle,
+        meta:{
+            requiereAuth: true
+         }
+     },
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
