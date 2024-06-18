@@ -1,6 +1,8 @@
 <template >
-    <div class="fav-hero">
-        <img :src="hero.urlImage" :alt="hero.title" class="fav-hero-image"/>
+    <div class="fav-hero" >
+        <div class="fav-hero-image" @click="goToHeroDetail()">
+            <img :src="hero.urlImage" :alt="hero.title" class="fav-hero-image"/>            
+        </div>
         <div class="fav-hero-info">
             <h3>{{hero.name}}</h3>
         </div>
@@ -22,6 +24,9 @@ export default {
             const heroId = Number(this.hero.id);
 
             await heroStore.deleteSavedHero(heroId)
+        },
+        goToHeroDetail() {
+            this.$router.push({ path: `/Biography/${this.hero.idHero}` });
         }
     }
 }

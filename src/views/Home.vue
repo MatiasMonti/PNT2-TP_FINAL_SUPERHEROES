@@ -34,16 +34,15 @@ export default {
     methods: {
         fetchHeroes(){
             if (!(this.filter.trim() === '')) {
-        this.heroApiStore.fetchHeroes(this.filter);
-      } else {
-        this.heroApiStore.heroes = [];
-      }
-
-   
+                this.heroApiStore.fetchHeroes(this.filter);
+            } else {
+                this.heroApiStore.heroes = [];
+            }        
         },
+        
         irAPerfil(){
         this.$router.push({ name: 'Perfil'})
-    }
+        }
     },
     mounted(){
         //fetchHeroes(); revisar si vale la pena trae heroes default.

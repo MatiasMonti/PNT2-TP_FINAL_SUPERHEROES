@@ -5,6 +5,7 @@ import Battle from '@/views/Battle.vue';
 import NotFound from '../views/NotFound.vue'
 import Favorites from '@/views/Favorites.vue';
 import Perfil from '../views/Perfil.vue'
+import Biography from '@/views/Biography.vue';
 
 const routes = [
     {
@@ -36,19 +37,27 @@ const routes = [
         }
     },
     {
-         path: '/battle',
-         name: 'Battle',
+        path: '/battle',
+        name: 'Battle',
         component: Battle,
         meta:{
             requiereAuth: true
-         }
+        }
      },
      {
+        path: '/Biography/:id',
+        name: 'Biography',
+        component: Biography,
+        meta:{
+           requiereAuth: true
+        }
+    },
+    {
         path: '/perfil',
         name: 'Perfil',
-       component: Perfil,
-       meta:{
-           requiereAuth: true
+        component: Perfil,
+        meta:{
+            requiereAuth: true
         }
     },
     {
