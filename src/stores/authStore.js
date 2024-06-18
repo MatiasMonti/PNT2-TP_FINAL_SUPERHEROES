@@ -85,7 +85,21 @@ export const useAuthStore = defineStore('auth', {
             if(this.isAuthenticated){
                 this.user = JSON.parse(localStorage.getItem('user'))
             }
-        }
+        },
+        async updateUser({ id, name, email }) {
+            try {
+                if (!id) {
+                    throw new Error('El ID del usuario es requerido');
+                }
+                const userUpdates = { name, email };
+                const response = await axios.put(`https://6657cb085c3617052645dfd1.mockapi.io/users/${id}`, userUpdates);
+                this.user = response.data;
+                localStorage.setItem('user', JSON.stringify(this.user));
+            } catch (error) {
+                console.error('Error actualizando el usuario: ', error.response ? error.response.data : error.message);
+                throw new Error('Error actualizando el usuario');
+            }
+        },
     }
 })
 

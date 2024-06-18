@@ -12,6 +12,9 @@ export const useHeroStore = defineStore('heroStore', {
         },
         isInHeroes: (state) => (heroId) => {
             return !!state.heroes.find(item => item.id === heroId);
+        },
+        firstAddedHero: (state) => {
+            return state.heroes.length > 0 ? state.heroes[0] : null;
         }
     },
     actions: {
