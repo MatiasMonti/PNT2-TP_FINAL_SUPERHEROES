@@ -4,7 +4,7 @@ import Login from '../views/Login.vue'
 import Battle from '@/views/Battle.vue';
 import NotFound from '../views/NotFound.vue'
 import Favorites from '@/views/Favorites.vue';
-
+import Perfil from '../views/Perfil.vue'
 
 const routes = [
     {
@@ -43,6 +43,14 @@ const routes = [
             requiereAuth: true
          }
      },
+     {
+        path: '/perfil',
+        name: 'Perfil',
+       component: Perfil,
+       meta:{
+           requiereAuth: true
+        }
+    },
     {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',

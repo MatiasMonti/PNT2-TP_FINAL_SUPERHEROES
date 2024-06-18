@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Mis Heroes Favoritos</h1>
+        <h1 class="dark-text">Mis Heroes Favoritos</h1>
         <div class="Hero-list">
             <Hero v-for="hero in Heroes" :key="hero.id" :hero="hero" />
         </div>

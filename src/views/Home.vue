@@ -5,6 +5,7 @@
         <div class="Hero-list">
             <FoundHero v-for="hero in FoundHeroes" :key="hero.id" :hero="hero" />
         </div>
+        <button @click="irAPerfil">ir a perfil</button>
     </div>
 </template>
 
@@ -39,11 +40,15 @@ export default {
       }
 
    
-        }
+        },
+        irAPerfil(){
+        this.$router.push({ name: 'Perfil'})
+    }
     },
     mounted(){
         //fetchHeroes(); revisar si vale la pena trae heroes default.
-    }
+    },
+    
     
 }
 </script>
