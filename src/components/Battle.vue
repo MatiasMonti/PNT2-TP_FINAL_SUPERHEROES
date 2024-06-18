@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="hasHeroes">
-      <label>Selecciona tu héroe favorito:</label>
+      <label class="dark-text">Selecciona tu héroe favorito:</label>
       <select v-model="selected">
         <option disabled value="">Selecciona un héroe</option>
         <option v-for="hero in heroes" :key="hero.id" :value="hero">
@@ -15,10 +15,10 @@
       <button @click="startBattle">Comenzar Batalla</button>
     </div>
     <div v-if="enemyHero">
-      <h2>Resultado de la Batalla</h2>
-      <p>Tu Héroe: {{ selected.name }} (Power: {{ selected.power }})</p>
-      <p>Héroe Enemigo: {{ enemyHero.name }} (Power: {{ enemyHero.power }})</p>
-      <p>{{ result }}</p>
+      <h2 class="dark-text">Resultado de la Batalla</h2>
+      <p class="dark-text" >Tu Héroe: {{ selected.name }} (Power: {{ selected.power }})</p>
+      <p class="dark-text">Héroe Enemigo: {{ enemyHero.name }} (Power: {{ enemyHero.power }})</p>
+      <p class="dark-text">{{ result }}</p>
     </div>
   </div>
 </template>
@@ -26,6 +26,8 @@
 <script>
 import { useHeroStore } from '../stores/heroStore';
 import { useHeroApiRandom } from '../stores/heroApiRandom';
+import { useBattleStore } from '../stores/battleStore';
+import { useAuthStore } from '../stores/authStore';
 
 export default {
   props: ['selectedHero'],
@@ -35,7 +37,10 @@ export default {
       enemyHero: null,
       result: null,
       heroStore: useHeroStore(),
-      heroApiRandom: useHeroApiRandom()
+      heroApiRandom: useHeroApiRandom(),
+      battleStore: useBattleStore(),
+      authStore: useAuthStore(),
+      resultHistory: null
     };
   },
   computed: {
@@ -93,11 +98,17 @@ async startBattle() {
   // Compara power con power
   if (userHero.power > enemyHero.power) {
     this.result = '¡Tú ganas!';
+    this.resultHistory = 'Ganaste'
   } else if (userHero.power < enemyHero.power) {
     this.result = '¡Tú pierdes!';
+      this.resultHistory = 'Perdiste'
   } else {
     this.result = '¡Es un empate!';
+      this.resultHistory = 'Empataste'
   }
+
+  const userId = this.authStore.user.id;
+  this.battleStore.saveBattleResult(userHero.name, enemyHero.name, this.resultHistory, userId);
   
   // Actualiza la propiedad seleccionada con el héroe del usuario y su poder
   this.selected = {name:userHero.name, power:userHero.power};
@@ -112,6 +123,8 @@ async startBattle() {
   }
 };
 </script>
+
+
 
 
 

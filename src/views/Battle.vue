@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Batallas</h1>
+    <h1 class="dark-text">Batallas</h1>
     <div class="Hero-list">
       <Hero 
         v-for="hero in Heroes" 
@@ -56,6 +56,7 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 16px;
+  color: #333;
 }
 </style>
 

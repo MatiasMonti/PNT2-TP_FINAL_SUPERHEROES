@@ -6,6 +6,7 @@ import NotFound from '../views/NotFound.vue'
 import Favorites from '@/views/Favorites.vue';
 import Perfil from '../views/Perfil.vue'
 import Biography from '@/views/Biography.vue';
+import BattleHistory from '@/views/BattleHistory.vue';
 
 const routes = [
     {
@@ -44,6 +45,12 @@ const routes = [
             requiereAuth: true
         }
      },
+     {
+        path: '/battle-history',
+        name: 'BattleHistory',
+        component: BattleHistory,
+        meta: { requiresAuth: true }
+      },
      {
         path: '/Biography/:id',
         name: 'Biography',

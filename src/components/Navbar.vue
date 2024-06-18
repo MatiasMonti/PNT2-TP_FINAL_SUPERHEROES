@@ -13,6 +13,9 @@
             <router-link class="nav-link" to="/battle">Batalla</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
+          <router-link class="nav-link" to="/battle-history">Crónicas</router-link>
+        </li>
+          <li class="nav-item" v-if="isAuthenticated">
             <router-link class="nav-link" to="/perfil">Perfil</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">

@@ -45,5 +45,6 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 16px;
+  color: #333;
 }
 </style>
