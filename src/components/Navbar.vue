@@ -25,7 +25,7 @@
             <router-link class="nav-link" to="/login">Login</router-link>
           </li>
           <li class="nav-item" v-if="isAuthenticated">
-            <span>Monedas: {{ cantidadMonedas }}</span>
+            <span>Monedas: {{ quantCoints }}</span>
           </li>
         </ul>
       </div>  
@@ -33,8 +33,6 @@
   </template>
   
   <script>
-  
-  import { useHeroStore } from '@/stores/heroStore';
   import { useAuthStore } from '../stores/authStore';
   
   
@@ -48,10 +46,9 @@
         const authStore = useAuthStore();
         return authStore.isAdmin;
       },
-      //aca hay que agregar para traer la cantidad de monedas
-      cantHeroes(){
-        const heroStore = useHeroStore();
-        return heroStore.quantHeroes;
+      quantCoints(){
+        const authStore = useAuthStore();
+        return authStore.quantCoints;
       }
     },
     methods:{
@@ -77,7 +74,7 @@
   }
   
   .nav-container {
-    max-width: 1200px; /* Aumentar el tamaño máximo del contenedor */
+    max-width: 1200px;
     margin: auto;
     display: flex;
     justify-content: space-between;

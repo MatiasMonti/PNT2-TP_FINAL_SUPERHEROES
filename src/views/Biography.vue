@@ -19,9 +19,7 @@
         },
         computed: {
             Hero(){
-
-                this.fetchHeroeBiography(); 
-                //yo tenia entendido que este deberia hacerlo el mounted pero si no agrego esta linea me cancela porque nunca hace el fetch
+                this.fetchHeroeBiography();                 
 
                 const hero = this.heroApiStore.heroBiography;
 

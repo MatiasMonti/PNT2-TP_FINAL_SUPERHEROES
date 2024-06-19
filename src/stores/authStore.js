@@ -7,12 +7,19 @@ export const useAuthStore = defineStore('auth', {
         user: null,
         isAdmin: false,
         id: 0,
+        coins: 0,
     }),
+    getters: {
+        quantCoints: (state) => {
+            return state.coins;
+        },
+        getId: (state) => {
+            return state.id;
+        },
+    },
     actions: {
         async login(name, password){
-
             try {
-                // const response = await fetch('https://664e8e3ffafad45dfae065a1.mockapi.io/api/v1/usuarios')
                 const response = await fetch('https://6657cb085c3617052645dfd1.mockapi.io/users')
                 const users = await response.json()
 
@@ -23,6 +30,7 @@ export const useAuthStore = defineStore('auth', {
                     this.user = user;
                     this.isAdmin = user.isAdmin;
                     this.id = user.id;
+                    this.coins = user.coins;
                     localStorage.setItem('isAuthenticated', 'true')
                     localStorage.setItem('isAdmin', user.isAdmin ? 'true' : 'false')
                     localStorage.setItem('user', JSON.stringify(user))
@@ -46,8 +54,7 @@ export const useAuthStore = defineStore('auth', {
                         password,
                         email,
                         isAdmin,
-                        coins,
-                        
+                        coins,                        
                     }
 
                     console.log('usuario : ', user);
@@ -95,6 +102,23 @@ export const useAuthStore = defineStore('auth', {
                 const response = await axios.put(`https://6657cb085c3617052645dfd1.mockapi.io/users/${id}`, userUpdates);
                 this.user = response.data;
                 localStorage.setItem('user', JSON.stringify(this.user));
+            } catch (error) {
+                console.error('Error actualizando el usuario: ', error.response ? error.response.data : error.message);
+                throw new Error('Error actualizando el usuario');
+            }
+        },
+        async updateCoins({ id,coins}) {
+            console.log(id)
+            console.log(coins)
+            try {
+                if (!id) {
+                    throw new Error('El ID del usuario es requerido');
+                }
+                const userUpdates = { coins };
+                const response = await axios.put(`https://6657cb085c3617052645dfd1.mockapi.io/users/${id}`, userUpdates);
+                this.user = response.data;
+                localStorage.setItem('user', JSON.stringify(this.user));
+                this.coins = coins;
             } catch (error) {
                 console.error('Error actualizando el usuario: ', error.response ? error.response.data : error.message);
                 throw new Error('Error actualizando el usuario');

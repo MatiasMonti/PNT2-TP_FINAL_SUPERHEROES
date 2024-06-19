@@ -53,70 +53,72 @@ export default {
   },
   methods: {
     async getRandomHero() {
-  const heroApiRandomStore = useHeroApiRandom();
-  await heroApiRandomStore.fetchHeroes();
-  const allHeroes = heroApiRandomStore.heroes;
-  if (allHeroes.length === 0) {
-    console.error('No hay héroes disponibles');
-    return null;
-  }
-  const randomIndex = Math.floor(Math.random() * allHeroes.length);
-  const randomHero = allHeroes[randomIndex];
-  // asegura de asignar la propiedad 'power' al héroe aleatorio
-  return { ...randomHero, power: randomHero.totalPower };
-},
+      const heroApiRandomStore = useHeroApiRandom();
+      await heroApiRandomStore.fetchHeroes();
+      const allHeroes = heroApiRandomStore.heroes;
+      if (allHeroes.length === 0) {
+        console.error('No hay héroes disponibles');
+        return null;
+      }
+      const randomIndex = Math.floor(Math.random() * allHeroes.length);
+      const randomHero = allHeroes[randomIndex];
+      return { ...randomHero, power: randomHero.totalPower };
+        },
+    async startBattle() {
+      this.result = '';
+      this.enemyHero = null;
+
+      let userHero = this.selected;
+      
+      if (!userHero) {
+        userHero = await this.getRandomHero();
+        if (!userHero) {
+          console.error('No se pudo obtener un héroe para el usuario');
+          return;
+        }
+      } else if (typeof userHero === 'string') {
+        const heroFromStore = this.heroes.find(hero => hero.name === userHero);
+        if (heroFromStore) {
+          userHero = heroFromStore;
+        } else {
+          console.error('El héroe seleccionado no está definido');
+          return;
+        }
+      }      
+      const enemyHero = await this.getRandomHero();
+      if (!enemyHero) {
+        console.error('No se pudo obtener un héroe enemigo');
+        return;
+      }
 
 
-async startBattle() {
-  this.result = '';
-  this.enemyHero = null;
+      if (userHero.power > enemyHero.power) {
+        this.result = '¡Tú ganas!';
+        this.resultHistory = 'Ganaste'
+          let coins = this.authStore.quantCoints + 10;
+          let id = this.authStore.getId
+          this.authStore.updateCoins({id, coins});
+      } 
+      else if (userHero.power < enemyHero.power) {
+        this.result = '¡Tú pierdes!';
+          this.resultHistory = 'Perdiste';
+          let coins = this.authStore.quantCoints - 10;
+          let id = this.authStore.getId
+          this.authStore.updateCoins({id, coins});
+      } 
+      else {
+        this.result = '¡Es un empate!';
+          this.resultHistory = 'Empataste'
+      }
 
-  let userHero = this.selected;
-  
-  if (!userHero) {
-    userHero = await this.getRandomHero();
-    if (!userHero) {
-      console.error('No se pudo obtener un héroe para el usuario');
-      return;
+      const userId = this.authStore.user.id;
+      this.battleStore.saveBattleResult(userHero.name, enemyHero.name, this.resultHistory, userId);
+      
+      // Actualiza la propiedad seleccionada con el héroe del usuario y su poder
+      this.selected = {name:userHero.name, power:userHero.power};
+      // Guarda el héroe enemigo con su poder
+      this.enemyHero = { name: enemyHero.name, power: enemyHero.power };
     }
-  } else if (typeof userHero === 'string') {
-    const heroFromStore = this.heroes.find(hero => hero.name === userHero);
-    if (heroFromStore) {
-      userHero = heroFromStore;
-    } else {
-      console.error('El héroe seleccionado no está definido');
-      return;
-    }
-  }
-  
-  const enemyHero = await this.getRandomHero();
-  if (!enemyHero) {
-    console.error('No se pudo obtener un héroe enemigo');
-    return;
-  }
-  
-  // Compara power con power
-  if (userHero.power > enemyHero.power) {
-    this.result = '¡Tú ganas!';
-    this.resultHistory = 'Ganaste'
-  } else if (userHero.power < enemyHero.power) {
-    this.result = '¡Tú pierdes!';
-      this.resultHistory = 'Perdiste'
-  } else {
-    this.result = '¡Es un empate!';
-      this.resultHistory = 'Empataste'
-  }
-
-  const userId = this.authStore.user.id;
-  this.battleStore.saveBattleResult(userHero.name, enemyHero.name, this.resultHistory, userId);
-  
-  // Actualiza la propiedad seleccionada con el héroe del usuario y su poder
-  this.selected = {name:userHero.name, power:userHero.power};
-  // Guarda el héroe enemigo con su poder
-  this.enemyHero = { name: enemyHero.name, power: enemyHero.power };
-}
-
-
   },
   mounted() {
     this.heroApiRandom.fetchHeroes();
