@@ -64,6 +64,7 @@ export default {
       const randomHero = allHeroes[randomIndex];
       return { ...randomHero, power: randomHero.totalPower };
         },
+
     async startBattle() {
       this.result = '';
       this.enemyHero = null;
@@ -95,16 +96,12 @@ export default {
       if (userHero.power > enemyHero.power) {
         this.result = '¡Tú ganas!';
         this.resultHistory = 'Ganaste'
-          let coins = this.authStore.quantCoints + 10;
-          let id = this.authStore.getId
-          this.authStore.updateCoins({id, coins});
+          await this.updateCoins(10);
       } 
       else if (userHero.power < enemyHero.power) {
         this.result = '¡Tú pierdes!';
           this.resultHistory = 'Perdiste';
-          let coins = this.authStore.quantCoints - 10;
-          let id = this.authStore.getId
-          this.authStore.updateCoins({id, coins});
+          await this.updateCoins(-10);
       } 
       else {
         this.result = '¡Es un empate!';
@@ -118,6 +115,16 @@ export default {
       this.selected = {name:userHero.name, power:userHero.power};
       // Guarda el héroe enemigo con su poder
       this.enemyHero = { name: enemyHero.name, power: enemyHero.power };
+    },
+    async updateCoins(coinsChange){    
+      let coins = this.authStore.quantCoints + coinsChange;
+      let id = this.authStore.getId
+      if(coins <= 0){
+        coins = 100        
+        window.alert(`Te quedaste sin monedas, toma te regalamos 100 \n
+        ¡Te Aconsejamos agregar mas heroes a tu equipo! `);
+      }  
+      await this.authStore.updateCoins({id, coins});
     }
   },
   mounted() {
