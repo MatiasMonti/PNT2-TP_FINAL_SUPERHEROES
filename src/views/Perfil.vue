@@ -44,7 +44,6 @@
             <h1 class="dark-text">Creacion Heroe</h1>
             <button @click="irACrearHeroe">Crear Héroe</button>
         </div>
-
     </div>
 </template>
 
@@ -63,7 +62,7 @@ export default defineComponent({
     computed: {
     firstAddedHero() {
       return useHeroStore().firstAddedHero;
-    },
+    }
   },
     methods: {
         irALogin() {
@@ -76,6 +75,7 @@ export default defineComponent({
             
             this.$router.push({ name: 'Favorites' });
         },
+        
         async guardarCambios() {
             try {
                 const authStore = useAuthStore();

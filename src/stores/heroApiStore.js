@@ -18,8 +18,11 @@ export const useHeroApiStore = defineStore('heroApiStore', {
                 const response = await axios.get('https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json');
 
                 const data = response.data;
-                
-                this.heroes = data.filter(hero => hero.name.toLowerCase().includes(filter.toLowerCase()));              
+                const joinListas = data.concat(this.customHeroes)
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                console.log(this.customHeroes);
+                console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                this.heroes = joinListas.filter(hero => hero.name.toLowerCase().includes(filter.toLowerCase()));              
                 
                 this.heroes = this.heroes.slice(0,10).map(hero => ({
                   id: hero.id,
@@ -52,19 +55,21 @@ export const useHeroApiStore = defineStore('heroApiStore', {
             } catch (error) {
                 console.error('El error es: ', error)
             }
-        }, 
-         addCustomHero(hero) {
-            // // Crear un ID único para el héroe personalizado
-            // const newId = this.customHeroes.length > 0 
-            //     ? this.customHeroes[this.customHeroes.length - 1].id + 1 
-            //     : 1; // Inicia desde 1 si no hay héroes personalizados aún
-                
+        }, addCustomHero(hero) {
+            console.log("####################################");
+            // Generar ID único para el héroe personalizado
+            const newId = this.customHeroes.length > 0
+                ? this.customHeroes[this.customHeroes.length - 1].id + 1
+                : 1; // Comienza desde 1 si no hay héroes personalizados
+
             this.customHeroes.push({
                 id: newId,
                 name: hero.nombre,
-                power: hero.poder
+                power: hero.poder,
+                image: hero.images.xs
             });
-            console.log("lista heroes admin",customHeroes.length);
+            console.log('Custom Heroes:', this.customHeroes);
+            console.log("####################################");
         }
         
     },

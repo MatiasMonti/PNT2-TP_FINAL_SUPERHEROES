@@ -10,10 +10,10 @@
                 <p class="dark-text">Poder</p>
                 <input v-model="nuevoHeroe.poder" type="text" required />
             </label>
-            <!-- <label>
+            <label>
                 <p class="dark-text">URL de Imagen</p>
                 <input v-model="nuevoHeroe.imagenUrl" type="url" required />
-            </label> -->
+            </label>
             <button type="submit">Crear Héroe</button>
         </form>
     </div>
@@ -21,7 +21,8 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { useHeroStore } from '../stores/heroStore';
+//import { useHeroStore } from '../stores/heroStore';
+import { useHeroApiStore } from '../stores/heroApiStore'; // Importa el store
 
 export default defineComponent({
     data() {
@@ -29,20 +30,25 @@ export default defineComponent({
             nuevoHeroe: {
                 nombre: '',
                 poder: '',
-              //  imagenUrl: ''
+                imagenUrl: ''
             }
         };
     },
     methods: {
         async crearHeroe() {
+            console.log("Creando heroe");
             try {
-                const heroStore = useHeroStore();
-                await heroStore.createHero(this.nuevoHeroe);
+                const heroApiStore = useHeroApiStore(); // Obtén la instancia del store
+                heroApiStore.addCustomHero({ // Llama a la acción del store para agregar el héroe
+                    nombre: this.nuevoHeroe.nombre,
+                    poder: this.nuevoHeroe.poder,
+                    imagenUrl:this.imagenUrl
+                });
                 alert('Héroe creado exitosamente');
                 this.nuevoHeroe.nombre = '';
                 this.nuevoHeroe.poder = '';
-               // this.nuevoHeroe.imagenUrl = '';
-                this.$router.push({ name: 'Perfil' });
+                this.imagenUrl = '';
+                // Redirige a donde corresponda después de crear el héroe
             } catch (error) {
                 console.error('Error al crear el héroe:', error);
                 alert('Hubo un error al crear el héroe.');
