@@ -4,7 +4,8 @@ import axios from 'axios';
 export const useHeroStore = defineStore('heroStore', {
     state: () => ({
         heroes: [],
-        quantHeroes : 0
+        quantHeroes : 0,
+        adminHeroes : []
     }),
     getters: {
         quantHeroes: (state) => {
@@ -22,7 +23,9 @@ export const useHeroStore = defineStore('heroStore', {
             try {                
                 const response = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${idUser}`)
 
-                this.heroes = response.data;
+                const data = response.data
+                const join = data.concat(this.adminHeroes)
+                this.heroes = join
 
             } catch (error) {
                 console.error('El error es: ', error)
@@ -74,6 +77,13 @@ export const useHeroStore = defineStore('heroStore', {
             } catch (error) {
                 console.error('Error borrando heroe')
             }
-        },            
+        },    
+        agregarHeroeAdmin(hero)     {
+            this.adminHeroes.push({
+                name: hero.nombre,
+                power: hero.poder,
+                image: hero.imagenUrl
+            });
+        }   
     },
 })
