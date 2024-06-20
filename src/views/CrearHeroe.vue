@@ -21,7 +21,6 @@
 
 <script>
 import { defineComponent } from 'vue';
-//import { useHeroStore } from '../stores/heroStore';
 import { useHeroApiStore } from '../stores/heroApiStore'; // Importa el store
 
 export default defineComponent({
@@ -42,12 +41,13 @@ export default defineComponent({
                 heroApiStore.addCustomHero({ // Llama a la acción del store para agregar el héroe
                     nombre: this.nuevoHeroe.nombre,
                     poder: this.nuevoHeroe.poder,
-                    imagenUrl:this.imagenUrl
+                    imagenUrl: this.nuevoHeroe.imagenUrl
                 });
                 alert('Héroe creado exitosamente');
+                console.log("Héroe creado:", this.nuevoHeroe);
                 this.nuevoHeroe.nombre = '';
                 this.nuevoHeroe.poder = '';
-                this.imagenUrl = '';
+                this.nuevoHeroe.imagenUrl = '';
                 // Redirige a donde corresponda después de crear el héroe
             } catch (error) {
                 console.error('Error al crear el héroe:', error);
