@@ -7,6 +7,7 @@ import Favorites from '@/views/Favorites.vue';
 import Perfil from '../views/Perfil.vue'
 import Biography from '@/views/Biography.vue';
 import BattleHistory from '@/views/BattleHistory.vue';
+import CrearHeroe from '@/views/CrearHeroe.vue'; 
 
 const routes = [
     {
@@ -63,6 +64,14 @@ const routes = [
         path: '/perfil',
         name: 'Perfil',
         component: Perfil,
+        meta:{
+            requiereAuth: true
+        }
+    },
+    {
+        path: '/crearHeroe',
+        name: 'CrearHeroe',
+        component: CrearHeroe,
         meta:{
             requiereAuth: true
         }

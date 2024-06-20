@@ -1,9 +1,15 @@
 <template>
     <div>
         <h1 class="dark-text">Mi Perfil</h1>
+        
         <div v-if="user">
-           
-        </div>
+      <!-- Mostrar el rol del usuario -->
+      <p class="dark-text">
+        <strong>Rol:</strong>
+        <span v-if="isAdmin">Administrador</span>
+        <span v-else>Usuario</span>
+      </p>
+    </div>
         <div class="button-container">
             <button @click="irAFavoritos">Ir a Favoritos</button>
             <button @click="irALogin" class="logout-button">Cerrar sesión</button>
@@ -32,9 +38,13 @@
       <div v-else class="dark-text">
         <strong>No has agregado ningún héroe a favoritos aún.</strong>
       </div>
+      <div v-if="isAdmin">
+            <div class="spacer"></div>
+            <hr />
+            <h1 class="dark-text">Creacion Heroe</h1>
+            <button @click="irACrearHeroe">Crear Héroe</button>
+        </div>
 
-
-      
     </div>
 </template>
 
@@ -75,6 +85,9 @@ export default defineComponent({
                 console.error('Error al guardar los cambios:', error);
                 alert('Hubo un error al guardar los cambios.');
             }
+        },
+        irACrearHeroe() {
+            this.$router.push({ name: 'CrearHeroe' });
         }
 
     },

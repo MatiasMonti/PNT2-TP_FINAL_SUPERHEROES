@@ -4,10 +4,13 @@ import axios from 'axios';
 export const useHeroApiStore = defineStore('heroApiStore', {
     state: () => ({
         heroes: [],
-        heroBiography : null
+        heroBiography : null,
+        customHeroes : []
     }),
     getters: {
-  
+        // allHeroes(state) {
+        //     return [...state.heroes, ...state.customHeroes];
+        // }
     },
     actions: {
         async fetchHeroes(filter){
@@ -49,6 +52,20 @@ export const useHeroApiStore = defineStore('heroApiStore', {
             } catch (error) {
                 console.error('El error es: ', error)
             }
-        },
+        }, 
+         addCustomHero(hero) {
+            // // Crear un ID único para el héroe personalizado
+            // const newId = this.customHeroes.length > 0 
+            //     ? this.customHeroes[this.customHeroes.length - 1].id + 1 
+            //     : 1; // Inicia desde 1 si no hay héroes personalizados aún
+                
+            this.customHeroes.push({
+                id: newId,
+                name: hero.nombre,
+                power: hero.poder
+            });
+            console.log("lista heroes admin",customHeroes.length);
+        }
+        
     },
 })
