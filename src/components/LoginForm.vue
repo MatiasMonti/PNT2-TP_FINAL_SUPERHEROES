@@ -1,6 +1,6 @@
 <template>
     <div class="login-form-container">
-      <h1>Login</h1>
+      <h1><strong>Inicia Sesión</strong></h1>
       <form @submit.prevent="login" class="login-form">
         <input v-model="username" type="text" placeholder="Username" class="login-input"/>
         <input v-model="password" type="password" placeholder="Password" class="login-input"/>
@@ -39,6 +39,9 @@
   </script>
   
   <style scoped>
+  h1{
+    color: #000;
+  }
   .login-form-container {
     max-width: 500px; /* Aumentar el tamaño máximo del contenedor */
     margin: auto;

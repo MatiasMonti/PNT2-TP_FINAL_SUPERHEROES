@@ -1,6 +1,8 @@
 <template>
   <div class="battle-chronicles">
     <h1 class="dark-text">Crónicas de Batallas</h1>
+    <button @click="clearSomeBattleHistory">Borrar primeros 5 resultados de Batallas</button>
+    <button @click="clearBattleHistory">Borrar todos los resultados de Batallas</button>
     <table class="battle-table">
       <thead>
         <tr>
@@ -30,6 +32,14 @@ export default {
     ...mapStores(useBattleStore, useAuthStore),
     battles() {
       return this.battleStore.battles;
+    }
+  },
+  methods: {
+    clearBattleHistory() {
+      this.battleStore.clearBattleHistory();
+    },
+    clearSomeBattleHistory() {
+      this.battleStore.clearSomeBattleHistory();
     }
   },
    mounted() {
@@ -76,4 +86,11 @@ export default {
 .battle-table tr:hover {
   background-color: #d1e7dd;
 }
+.button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
 </style>

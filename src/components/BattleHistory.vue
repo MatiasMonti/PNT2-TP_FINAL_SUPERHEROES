@@ -1,6 +1,8 @@
 <template>
     <div>
       <h1>Historial de Batallas</h1>
+      <button @click="clearSomeBattleHistory">Borrar primeros 5 resultados de Batallas</button>
+      <button @click="clearBattleHistory">Borrar todos los resultados de Batallas</button>
       <table>
         <thead>
           <tr>
@@ -41,7 +43,24 @@
         } catch (error) {
           console.error('Error fetching battle history:', error);
         }
+      },
+      async clearSomeBattleHistory() {
+      try {
+        const idsToDelete = this.battles.slice(0, 5).map(battle => battle.id);
+        await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${idsToDelete.join(',')}`);
+        this.fetchBattleHistory();
+      } catch (error) {
+        console.error('Error clearing some battle history:', error);
       }
+    },
+      async clearBattleHistory() {
+      try {
+        await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${this.userId}`);
+        this.fetchBattleHistory();
+      } catch (error) {
+        console.error('Error clearing battle history:', error);
+      }
+    }
     }
   };
   </script>
