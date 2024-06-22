@@ -21,7 +21,7 @@ export default {
             const heroStore = useHeroStore()
             const authStore = useAuthStore()
             this.hero.idUser = authStore.id
-            console.log(this.hero.idUser)
+            // console.log(this.hero.idUser)
             await heroStore.saveHero(this.hero)
       
         }

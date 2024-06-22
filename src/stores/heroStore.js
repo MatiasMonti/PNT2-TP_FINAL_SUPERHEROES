@@ -43,11 +43,13 @@ export const useHeroStore = defineStore('heroStore', {
 
             localStorage.setCant('cantHeroes', this.cantHeroes)
             },
-        async saveHero(hero) {
-            const existingHeroes = await axios.get('https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes');
-            const heroExists = existingHeroes.data.some(savedHero => savedHero.idHero === hero.idHero);
+         async saveHero(hero) {
+            const existingHeroes = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${hero.idUser}`);
+            // console.log(existingHeroes)
+            const heroExists = existingHeroes.data.some(savedHero => savedHero.idHero === hero.id);
+            // console.log(heroExists)
             if (heroExists) {
-                window.alert(`${newHero.name} ya existe en la lista.`);
+                window.alert(`${hero.name} ya existe en la lista.`);
                 return; 
             }else{
                 try {                
