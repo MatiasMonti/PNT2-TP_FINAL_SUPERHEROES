@@ -47,7 +47,9 @@
       async clearSomeBattleHistory() {
       try {
         const idsToDelete = this.battles.slice(0, 5).map(battle => battle.id);
-        await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${idsToDelete.join(',')}`);
+        for (const id of idsToDelete) {
+          await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${id}`);
+        }
         this.fetchBattleHistory();
       } catch (error) {
         console.error('Error clearing some battle history:', error);
@@ -55,7 +57,9 @@
     },
       async clearBattleHistory() {
       try {
-        await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${this.userId}`);
+        for (const id of idsToDelete) {
+          await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${id}`);
+        }
         this.fetchBattleHistory();
       } catch (error) {
         console.error('Error clearing battle history:', error);
