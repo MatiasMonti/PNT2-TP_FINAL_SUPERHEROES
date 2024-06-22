@@ -36,10 +36,12 @@ export default {
   },
   methods: {
     clearBattleHistory() {
-      this.battleStore.clearBattleHistory();
+      const userId = this.authStore.user.id;
+      this.battleStore.clearBattleHistory(userId);
     },
     clearSomeBattleHistory() {
-      this.battleStore.clearSomeBattleHistory();
+      const userId = this.authStore.user.id;
+      this.battleStore.clearSomeBattleHistory(userId);
     }
   },
    mounted() {

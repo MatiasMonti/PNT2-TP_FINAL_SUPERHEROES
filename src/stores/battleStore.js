@@ -21,24 +21,48 @@ export const useBattleStore = defineStore('battle', {
     },
     async clearSomeBattleHistory(userId, limit = 5) {
       try {
-        const response = await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${userId}&limit=${limit}`);
-        this.battles.splice(0, limit);
+        // Obtener los primeros "limit" batallas del usuario
+        const response = await axios.get(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${userId}`);
+        if (response.data.length === 0) {
+          window.alert('No hay batallas para eliminar.');
+        }else{
+        const battleIds = response.data.slice(0, limit).map(battle => battle.id);
+        // Eliminar cada batalla por ID
+        for (const id of battleIds) {
+          await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${id}`);
+        }
+          // Actualizar el estado local de batallas
+          this.battles = this.battles.filter(battle => !battleIds.includes(battle.id));
         window.alert(`Se eliminaron los primeros ${limit} resultados de batalla.`);
+        }
       } catch (error) {
-        window.alert(`Error al tratar de borrar los primeros ${limit} resultados de batalla:`, error);
+        console.error(`Error al tratar de borrar los primeros ${limit} resultados de batalla:`, error);
+        window.alert(`Error al tratar de borrar los primeros ${limit} resultados de batalla.`);
       }
     },
 
-     async clearBattleHistory(userId) {
-       try {
-         await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${userId}`);
-        this.battles = []; 
+    async clearBattleHistory(userId) {
+      try {
+        // Obtener todas las batallas del usuario
+        const response = await axios.get(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${userId}`);
+        if (response.data.length === 0) {
+          window.alert('No hay batallas para eliminar.');
+        }else{
+        const battleIds = response.data.map(battle => battle.id);
+        // Eliminar cada batalla por ID
+        for (const id of battleIds) {
+          await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${id}`);
+        }
+           // Actualizar el estado local de batallas
+        this.battles = [];
         window.alert('Historial de batallas eliminado correctamente.');
+        }
       } catch (error) {
-        window.alert('Error al tratar de borrar el historial de batallas:', error);
+        console.error('Error al tratar de borrar el historial de batallas:', error);
+        window.alert('Error al tratar de borrar el historial de batallas.');
       }
-     },
-     
+    },
+
     async fetchBattleHistory(userId) {
       try {
         const response = await axios.get(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${userId}`);
