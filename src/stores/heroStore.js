@@ -69,22 +69,21 @@ export const useHeroStore = defineStore('heroStore', {
                 }
             }  
         },
-
-
-
         async deleteSavedHero(idSavedHero) {
-            try {                
-                const response = await axios.delete(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes/${idSavedHero}`);
-                this.deleteHero(idSavedHero);
-            } catch (error) {
-                console.error('Error borrando heroe')
+            if(idSavedHero){
+                try {                
+                    const response = await axios.delete(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes/${idSavedHero}`);
+                    this.deleteHero(idSavedHero);
+                } catch (error) {
+                    console.error('Error borrando heroe')
+                }
             }
         },    
         agregarHeroeAdmin(hero)     {
             this.adminHeroes.push({
                 name: hero.nombre,
                 power: hero.poder,
-                image: hero.imagenUrl
+                urlImage: hero.imagenUrl
             });
         }   
     },

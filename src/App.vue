@@ -9,7 +9,9 @@ import Navbar from './components/Navbar.vue'
       <router-view />
     </div>
     <footer class="footer">
-      <h1>Footer</h1>
+      <a href="https://github.com/MatiasMonti/PNT2-TP_FINAL_SUPERHEROES" target="_blank">
+        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:50px;height:50px;">
+      </a>
     </footer>
   </div>
 </template>
