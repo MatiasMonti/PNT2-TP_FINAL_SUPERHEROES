@@ -21,10 +21,10 @@ export const useHeroStore = defineStore('heroStore', {
     actions: {
         async fetchHeroes(idUser){
             try {                
-                const response = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${idUser}`)
-                const favoritosFiltradosPorIdUser = response.data.filter(fav => fav.idUser === idUser)
-                const data = favoritosFiltradosPorIdUser
-                const join = data.concat(this.adminHeroes)
+                const response = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${idUser}`);
+                const favoritosFiltradosPorIdUser = response.data.filter(fav => fav.idUser === idUser);
+                const data = favoritosFiltradosPorIdUser;
+                const join = data.concat(this.adminHeroes);
                 this.heroes = join
 
             } catch (error) {
@@ -44,12 +44,12 @@ export const useHeroStore = defineStore('heroStore', {
             localStorage.setCant('cantHeroes', this.cantHeroes)
             },
          async saveHero(hero) {
-            const existingHeroes = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes`);
-            // console.log(existingHeroes)
-            const heroExists = existingHeroes.data.some(savedHero => savedHero.idHero === hero.id);
-            // console.log(heroExists)
+            const response = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${hero.idUser}`);
+            const existingHeroesFiltradosPorIdUser = response.data.filter(fav => fav.idUser === hero.idUser);
+            const heroExists = existingHeroesFiltradosPorIdUser.some(savedHero => savedHero.idHero === hero.id);
+
             if (heroExists) {
-                window.alert(`${hero.name} ya existe en tu lista o en la lista de alguien más.`);
+                window.alert(`${hero.name} ya existe en tu lista de favoritos.`);
                 return; 
             }else{
                 try {                
@@ -61,30 +61,29 @@ export const useHeroStore = defineStore('heroStore', {
                         "power": hero.powerstats.intelligence + hero.powerstats.strength + hero.powerstats.speed
                          + hero.powerstats.power + hero.powerstats.durability + hero.powerstats.combat
                     }
-                    console.log(newHero)
-                    window.alert(`Se ha agregado a ${newHero.name}!`) //Para prueba de validación si es que entra un heroe repetido
+                    window.alert(`Se ha agregado a ${newHero.name}!`)
                     const response = await axios.post('https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes', newHero);
                 } catch (error) {
                     console.error('Error agregando heroe: ',error)
                 }
             }  
         },
-
-
-
-        async deleteSavedHero(idSavedHero) {
-            try {                
-                const response = await axios.delete(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes/${idSavedHero}`);
-                this.deleteHero(idSavedHero);
-            } catch (error) {
-                console.error('Error borrando heroe')
-            }
+        async deleteSavedHero(hero) {            
+            if(hero.id){
+                try {                             
+                    console.log(hero.id);       
+                    const response = await axios.delete(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes/${hero.id}`);
+                    this.deleteHero(hero.id);
+                } catch (error) {
+                    console.error('Error borrando heroe')
+                }
+            }   
         },    
         agregarHeroeAdmin(hero)     {
             this.adminHeroes.push({
                 name: hero.nombre,
                 power: hero.poder,
-                image: hero.imagenUrl
+                urlImage: hero.imagenUrl
             });
         }   
     },

@@ -21,9 +21,7 @@ export default {
         async remove(){
             const heroStore = useHeroStore()
 
-            const heroId = Number(this.hero.id);
-
-            await heroStore.deleteSavedHero(heroId)
+            await heroStore.deleteSavedHero(this.hero)
         },
         goToHeroDetail() {
             this.$router.push({ path: `/Biography/${this.hero.idHero}` });
