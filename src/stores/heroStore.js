@@ -22,8 +22,8 @@ export const useHeroStore = defineStore('heroStore', {
         async fetchHeroes(idUser){
             try {                
                 const response = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${idUser}`)
-
-                const data = response.data
+                const favoritosFiltradosPorIdUser = response.data.filter(fav => fav.idUser === idUser)
+                const data = favoritosFiltradosPorIdUser
                 const join = data.concat(this.adminHeroes)
                 this.heroes = join
 
@@ -44,12 +44,12 @@ export const useHeroStore = defineStore('heroStore', {
             localStorage.setCant('cantHeroes', this.cantHeroes)
             },
          async saveHero(hero) {
-            const existingHeroes = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${hero.idUser}`);
+            const existingHeroes = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes`);
             // console.log(existingHeroes)
             const heroExists = existingHeroes.data.some(savedHero => savedHero.idHero === hero.id);
             // console.log(heroExists)
             if (heroExists) {
-                window.alert(`${hero.name} ya existe en la lista.`);
+                window.alert(`${hero.name} ya existe en tu lista o en la lista de alguien más.`);
                 return; 
             }else{
                 try {                
@@ -69,21 +69,22 @@ export const useHeroStore = defineStore('heroStore', {
                 }
             }  
         },
+
+
+
         async deleteSavedHero(idSavedHero) {
-            if(idSavedHero){
-                try {                
-                    const response = await axios.delete(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes/${idSavedHero}`);
-                    this.deleteHero(idSavedHero);
-                } catch (error) {
-                    console.error('Error borrando heroe')
-                }
+            try {                
+                const response = await axios.delete(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes/${idSavedHero}`);
+                this.deleteHero(idSavedHero);
+            } catch (error) {
+                console.error('Error borrando heroe')
             }
         },    
         agregarHeroeAdmin(hero)     {
             this.adminHeroes.push({
                 name: hero.nombre,
                 power: hero.poder,
-                urlImage: hero.imagenUrl
+                image: hero.imagenUrl
             });
         }   
     },
