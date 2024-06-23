@@ -25,7 +25,7 @@ export const useHeroApiStore = defineStore('heroApiStore', {
             }
         },
         async fetchHeroeBiography(id) {
-            if(typeof id === "number" && !isNaN(id)){
+            if(!isNaN(id)){
                 try {
                     const response = await axios.get(`https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/id/${id}.json`);
                     const data = response.data;
