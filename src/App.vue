@@ -4,6 +4,7 @@ import Navbar from './components/Navbar.vue'
 
 <template>
   <div id="app" class="app-container">
+    
     <Navbar />
     <div class="content">
       <router-view />
@@ -20,14 +21,18 @@ import Navbar from './components/Navbar.vue'
 html, body {
   height: 100%;
   margin: 0;
-  background-color: #f5f5f5; 
+  background-color: rgb(10, 8, 8); 
   font-family: Arial, sans-serif;
+ 
 }
 
 #app {
   min-height: 100vh; 
   display: flex;
   flex-direction: column;
+  background-image: url(https://png.pngtree.com/thumb_back/fw800/background/20231229/pngtree-dynamic-clash-comic-style-sunburst-texture-sets-the-stage-for-heroic-image_13929819.png);
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .app-container {

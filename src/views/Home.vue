@@ -5,7 +5,7 @@
         <div class="Hero-list">
             <FoundHero v-for="hero in FoundHeroes" :key="hero.id" :hero="hero" />
         </div>
-        <button @click="irAPerfil">ir a perfil</button>
+        <button @click="irAPerfil">Ir al perfil</button>
     </div>
 </template>
 
@@ -57,6 +57,8 @@ export default {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 16px;
   padding: 16px;
+  
+  
 }
 .dark-text {
   color: #000000;
