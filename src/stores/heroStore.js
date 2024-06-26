@@ -44,7 +44,7 @@ export const useHeroStore = defineStore('heroStore', {
             localStorage.setCant('cantHeroes', this.cantHeroes)
             },
          async saveHero(hero) {
-            const response = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes?idUser=${hero.idUser}`);
+            const response = await axios.get(`https://6657cb085c3617052645dfd1.mockapi.io/savedHeroes`);
             const existingHeroesFiltradosPorIdUser = response.data.filter(fav => fav.idUser === hero.idUser);
             const heroExists = existingHeroesFiltradosPorIdUser.some(savedHero => savedHero.idHero === hero.id);
 
