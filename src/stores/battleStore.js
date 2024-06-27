@@ -24,10 +24,11 @@ export const useBattleStore = defineStore('battle', {
         // Obtener los primeros "limit" batallas del usuario
         const res = await axios.get(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${userId}`);
         const response = res.data.filter(history => history.userId === userId)
-        if (response.data.length === 0) {
+        console.log(response)
+        if (response.length === 0) {
           window.alert('No hay batallas para eliminar.');
         }else{
-        const battleIds = response.data.slice(0, limit).map(battle => battle.id);
+        const battleIds = response.slice(0, limit).map(battle => battle.id);
         // Eliminar cada batalla por ID
         for (const id of battleIds) {
           await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${id}`);
@@ -47,10 +48,10 @@ export const useBattleStore = defineStore('battle', {
         // Obtener todas las batallas del usuario
         const res = await axios.get(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical?userId=${userId}`);
         const response = res.data.filter(history => history.userId === userId)
-        if (response.data.length === 0) {
+        if (response.length === 0) {
           window.alert('No hay batallas para eliminar.');
         }else{
-        const battleIds = response.data.map(battle => battle.id);
+        const battleIds = response.map(battle => battle.id);
         // Eliminar cada batalla por ID
         for (const id of battleIds) {
           await axios.delete(`https://666a37c72e964a6dfed7ec76.mockapi.io/api/historicalFights/historical/${id}`);
