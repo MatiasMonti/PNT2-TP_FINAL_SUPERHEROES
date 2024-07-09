@@ -3,6 +3,7 @@
     <h1 class="dark-text">Crónicas de Batallas</h1>
     <button @click="clearSomeBattleHistory">Borrar primeros 5 resultados de Batallas</button>
     <button @click="clearBattleHistory">Borrar todos los resultados de Batallas</button>
+
     <table class="battle-table">
       <thead>
         <tr>
@@ -12,11 +13,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="battle in battles" :key="battle.id">
-          <td>{{ battle.characterName }}</td>
-          <td>{{ battle.opponentName }}</td>
-          <td>{{ battle.result }}</td>
-        </tr>
+        <Battle v-for="battle in battles" :key="battle.id" :battle="battle"/>
+        
       </tbody>
     </table>
   </div>
@@ -26,8 +24,17 @@
 import { useBattleStore } from '@/stores/battleStore';
 import { useAuthStore } from '@/stores/authStore';
 import { mapStores } from 'pinia';
+import Battle from '@/components/BattleHistory.vue';
 
 export default {
+  components: {
+        Battle
+    },
+    data(){
+        return {
+            battleStore: useBattleStore()
+        }
+    },
   computed: {
     ...mapStores(useBattleStore, useAuthStore),
     battles() {
